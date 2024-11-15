@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import './App.css';
 import { useAppDispatch, useAppSelector } from '../../store/hooks-redux';
 import getGenesets from '../../store/middlewares/getGenesets';
+import Geneset from '../Geneset/Geneset';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -19,12 +20,14 @@ function App() {
     dispatch(getGenesets());
   }, []);
 
-    // Just for the exercise to visualize the data
-    console.log(genesetsCatalog)
-
   return (
     <div className="App">
-      <p>Coucou</p>
+      {errorMsg && <p> {errorMsg} </p>}
+      <ul>
+        {genesetsCatalog.map((geneset)=>(
+          <Geneset key={geneset.id} geneset={geneset}/>
+        ))}
+      </ul>
     </div>
   );
 }
